@@ -378,7 +378,7 @@ def main():
             accelerator.print(f"evaluate from checkpoint {path}")
             # state_dict = torch.load(f'{path}/unwrapped_model/pytorch_model.bin', map_location="cpu")
             model.load_state_dict(torch.load(f'{path}/unwrapped_model/pytorch_model.bin', map_location="cpu"), strict=True)
-            del state_dict
+            # del state_dict
 
     logger.info("Preparing model, optimizer and dataloaders")
     model, optimizer, lr_scheduler = accelerator.prepare(model, optimizer, lr_scheduler)

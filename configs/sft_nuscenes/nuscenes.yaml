@@ -3,7 +3,7 @@ wandb:
   resume: 'auto'
 
 experiment:
-    base_root: '' #path/to/root
+    base_root: '.' #path/to/root
     project: "sft_nuscenes"
     name: "sft_planning"
     output_dir: "${experiment.base_root}/resume_checkpoint/sft_nuscenes"
@@ -25,7 +25,7 @@ experiment:
       alpha_coffe: 1.0
       beta_coffe: 0.4
     eval:
-      use_fvd: True
+      use_fvd: False
       max_eval_iters: 10000
       use_frame_metrics: True
       eval_generate_times: 4
@@ -35,7 +35,7 @@ experiment:
       use_text_metrics: True
       use_trj_metrics: True
       trj_anno_path: "${experiment.base_root}/dataset/nuscenes/nuscenes2d_ego_temporal_infos_val.pkl"
-      eval_dir: ""# path/to/ckpt
+      eval_dir: "${experiment.base_root}/checkpoints/ckpt_sft_nuscenes_wo_ego"# path/to/ckpt
 
 model:
     vq_model:
@@ -47,7 +47,7 @@ model:
         patch_size: 2
         num_vq_embeddings: 8192
         num_dyn_embeddings: 8192
-        pretrained_model_path: "" #path/to/vq_tokenizer/diffusion_pytorch_model.safetensors
+        pretrained_model_path: "${experiment.base_root}/checkpoints/tokenizer/unwrapped_model/diffusion_pytorch_model.safetensors" #path/to/vq_tokenizer/diffusion_pytorch_model.safetensors
     clip_model: "${experiment.base_root}/checkpoints/clip-vit-large-patch14-336"
     cond_enable: true #false
     showo:
@@ -61,7 +61,7 @@ model:
         num_vq_tokens: 256
         num_new_special_tokens: 10  # <|soi|> <|eoi|> <|sov|> <|eov|> <|t2i|> <|mmu|> <|t2v|> <|v2v|> <|lvg|> <|pad|>
         dynamic_size: 8192
-        resume_from_pretrain: "" # path/to/pretrained model/pytorch_model.bin'
+        resume_from_pretrain: "${experiment.base_root}/checkpoints/pre-training/ckpt_w_DFL/unwrapped_model/pytorch_model.bin" # path/to/pretrained model/pytorch_model.bin'
     eval:
         i3d_path: '${experiment.base_root}/checkpoints/i3d/i3d_torchscript.pt'
     gradient_checkpointing: True
@@ -112,7 +112,7 @@ dataset:
         nuscenes_back_left: ''
         nuscenes_back_right: ''
 
-      nuscenes_data_path: '/nuscenes'
+      nuscenes_data_path: 'nuscenes'
 
 
 optimizer:

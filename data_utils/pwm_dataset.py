@@ -204,6 +204,7 @@ class DatasetNuScenes(Dataset):#camera ready dataset
         #     self.nus_ori_annos = pickle.load(f)['infos']
         # self.omini_anno_root = config.dataset.ctd.anno_path  # [[conv[qas]]]
         self.scenes = create_splits_scenes()
+        self.image_file = config.dataset.ctd.image_file
         with open(os.path.join(config.dataset.ctd.image_file, f'CAM_FRONT_{split}_imgs_path.json'), 'r')as f:
             self.image_path = json.load(f)
         # self.image_root = config.dataset.ctd.image_root
