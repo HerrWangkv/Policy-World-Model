@@ -9,3 +9,11 @@ node_modules/
 *.gem
 *.swp
 *~
+
+__pycache__/
+nuscenes/
+dataset/*
+data/
+resume_checkpoint/
+wandb/
+my_carla_dataset_pwm/
