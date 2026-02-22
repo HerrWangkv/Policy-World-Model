@@ -9,3 +9,9 @@ node_modules/
 *.gem
 *.swp
 *~
+__pycache__/
+dataset/nuscenes/
+nuscenes/
+wandb/
+resume_checkpoint/
+ppd/
