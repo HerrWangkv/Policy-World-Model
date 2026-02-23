@@ -15,5 +15,6 @@ nuscenes/
 dataset/*
 data/
 resume_checkpoint/
+carla_checkpoint/
 wandb/
 my_carla_dataset_pwm/

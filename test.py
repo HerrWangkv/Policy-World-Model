@@ -40,7 +40,7 @@ def visualize_cases(json_path, data_root, mode='worst', num_samples=3):
 
         # 1. 动态拼接图片名
         scene_name = sample.get('scene_name', 'unknown')
-        frame_idx = sample.get('frame_idx', 0)
+        frame_idx = sample.get('seq_idx', 1000)
         img_name = f"{scene_name}_{int(frame_idx):04d}.jpg"
         
         # 尝试从 samples 或 sweeps 文件夹读取图片

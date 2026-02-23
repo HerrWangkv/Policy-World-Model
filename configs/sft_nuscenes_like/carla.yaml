@@ -6,7 +6,7 @@ experiment:
     base_root: '.' #path/to/root
     project: "sft_nuscenes"
     name: "sft_planning"
-    output_dir: "${experiment.base_root}/resume_checkpoint/sft_nuscenes"
+    output_dir: "${experiment.base_root}/carla_checkpoint/sft_nuscenes"
     ablation_name: ""
     max_train_examples_mmu: 50000
     save_every: 5000
@@ -18,7 +18,7 @@ experiment:
     eval_only: True #False
     resume_dir: ""
     img_show_path: '${experiment.base_root}/visual_show/sft/nuscenes'
-    text_root: '${experiment.base_root}/resume_checkpoint/sft_nuscenes/text_pair'
+    text_root: '${experiment.base_root}/carla_checkpoint/sft_nuscenes/text_pair'
     add_ego: false #true #
     add_cmd: true
     nfp_loss:

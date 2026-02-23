@@ -65,13 +65,10 @@ class DatasetNuScenes(Dataset):
             meas_dir = os.path.join(scene_dir, "measurements")
             if not os.path.exists(meas_dir): continue
                 
-            json_files = sorted(glob.glob(os.path.join(meas_dir, "*.json.gz")))
-            
-            # --- 修改点 1: 剔除最后 30 帧 (3.0s)，防止截断轨迹干扰评估 ---
-            valid_limit = len(json_files) - 30 
-            if valid_limit <= 0: continue # 场景太短则跳过
+            json_files = sorted(glob.glob(os.path.join(meas_dir, "*.json")))
+            assert len(json_files) == 49
 
-            for i in range(valid_limit):
+            for i in range(self.prev_frames - 1, len(json_files) - self.next_frames + 1): # 确保有足够的前后帧
                 index.append({
                     'scene_name': scene_name,
                     'seq_idx': i,
@@ -190,7 +187,7 @@ class DatasetNuScenes(Dataset):
 
     def __getitem__(self, idx):
         info = self.frames_index[idx]
-        with gzip.open(info['json_path'], 'rt') as f:
+        with open(info['json_path'], 'rt') as f:
             data = json.load(f)
             
         prev_img, next_img = self._get_images(info['scene_name'], info['seq_idx'])

@@ -25,13 +25,13 @@ def convert_dataset(args):
             continue
 
         # 获取所有 measurements 的 json.gz 文件并排序
-        scene_data = sorted([os.path.join(scene_dir, f) for f in os.listdir(scene_dir) if f.endswith('.json.gz')])
+        scene_data = sorted([os.path.join(scene_dir, f) for f in os.listdir(scene_dir) if f.endswith('.json')])
         
         output_scene_dir = os.path.join(args.output_dir, scene_name, "measurements")
         os.makedirs(output_scene_dir, exist_ok=True)
 
         for current_idx, file_path in enumerate(scene_data):
-            with gzip.open(file_path, 'rt') as f:
+            with open(file_path, 'rt') as f:
                 data = json.load(f)
 
             # 修正1：键名改为 'pos_global'，同时翻转 Y 轴以匹配右手系
@@ -50,7 +50,7 @@ def convert_dataset(args):
                 future_idx = current_idx + int(i * 0.5 * 10) # 假设10Hz
                 
                 if future_idx < len(scene_data):
-                    with gzip.open(scene_data[future_idx], 'rt') as f:
+                    with open(scene_data[future_idx], 'rt') as f:
                         future_data = json.load(f)
                     
                     # 同样使用 pos_global 并翻转 Y
@@ -91,12 +91,12 @@ def convert_dataset(args):
             file_name = os.path.basename(file_path)
             save_file_path = os.path.join(output_scene_dir, file_name)
             
-            with gzip.open(save_file_path, 'wt') as f:
-                json.dump(processed_data, f)
+            with open(save_file_path, 'wt') as f:
+                json.dump(processed_data, f, indent=2)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert CARLA measurements for model evaluation.")
-    parser.add_argument("--input_dir", type=str, default="/mrtstorage/users/kwang/my_sunny_dataset", help="Path to raw CARLA dataset.")
+    parser.add_argument("--input_dir", type=str, default="/mrtstorage/users/kwang/nucarla_dataset", help="Path to raw CARLA dataset.")
     parser.add_argument("--output_dir", type=str, default="./my_carla_dataset_pwm", help="Path to save processed dataset.")
     args = parser.parse_args()
     

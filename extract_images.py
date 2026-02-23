@@ -39,7 +39,7 @@ def extract_frames_nuscenes_style(video_folder, output_root, sample_step=5):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract frames from videos in NuScenes style.")
-    parser.add_argument("video_dir", type=str, help="Directory containing input videos", default="/mrtstorage/users/kwang/my_sunny_videos/rgb")
+    parser.add_argument("video_dir", type=str, help="Directory containing input videos", default="/mrtstorage/users/kwang/nucarla_videos/rgb")
     parser.add_argument("--output_dir", type=str, help="Directory to save extracted frames", default="./my_carla_dataset_pwm")
     parser.add_argument("--sample_step", type=int, default=5, help="Step size for keyframe sampling (default: 5)")
     args = parser.parse_args()
